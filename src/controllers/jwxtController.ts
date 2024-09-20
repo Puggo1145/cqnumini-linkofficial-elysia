@@ -18,7 +18,7 @@ export const jwxtController = new Elysia({ prefix: "/jwxt" })
 
         return {
             success: false,
-            code: "",
+            code: "0",
             message: error.message,
         }
     })
@@ -29,7 +29,7 @@ export const jwxtController = new Elysia({ prefix: "/jwxt" })
 
             return {
                 success: true,
-                code: "",
+                code: "0",
                 data: cookie
             }
         },

@@ -6,11 +6,21 @@ import { UtilityService } from "../services";
 const getCardInfoSchema = t.Object({
     studentId: t.String(),
 });
+
 const getUtilityBalanceSchema = t.Object({
     eCardId: t.String(),
     dormitoryName: t.String(),
     roomNumber: t.String(),
 });
+const utilityFeeBalanceSchema = t.Object({
+    electricity: t.Nullable(t.Number()),
+    water: t.Nullable(t.Number())
+});
+const UtilityBalanceResponseSchema = t.Object({
+    success: t.Boolean(),
+    code: t.String(),
+    data: t.Optional(utilityFeeBalanceSchema),
+})
 
 
 export const utilityController = new Elysia({ prefix: "/utility" })
@@ -30,7 +40,7 @@ export const utilityController = new Elysia({ prefix: "/utility" })
 
             return {
                 success: true,
-                code: "",
+                code: "0",
                 data: card
             }
         },
@@ -51,5 +61,6 @@ export const utilityController = new Elysia({ prefix: "/utility" })
         },
         {
             body: getUtilityBalanceSchema,
+            response: UtilityBalanceResponseSchema
         }
     );

@@ -22,7 +22,7 @@ export abstract class JWXTService {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => {
                 controller.abort();
-            }, 3000); // 3秒超时
+            }, 1000); // 1 秒超时
 
             try {
                 const response = await fetch(url, {

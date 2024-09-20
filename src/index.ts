@@ -2,7 +2,7 @@ import { Elysia } from "elysia";
 import { api } from "./controllers";
 
 
-const app = new Elysia()
+export const app = new Elysia()
   .use(api)
   .onError(({ error }) => {
     return {
