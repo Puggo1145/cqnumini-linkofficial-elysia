@@ -1,5 +1,6 @@
 import { urls } from "../constants/urls";
 import { getUA } from "../libs/getRandomUA";
+import { parseCookieStr } from "../libs/cookieStrParser";
 
 
 export abstract class JWXTService {
@@ -7,11 +8,7 @@ export abstract class JWXTService {
         let url = urls.jwxt.signIn;
 
         // 初始化 cookies 对象，并将 mainCookie 解析后添加进去
-        let cookies: { [key: string]: string } = {};
-        const [name, value] = mainCookie.split("=");
-        if (name && value) {
-            cookies[name.trim()] = value.trim();
-        }
+        let cookies = parseCookieStr(mainCookie);
 
 
         let maxRedirects = 10;
@@ -25,7 +22,7 @@ export abstract class JWXTService {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => {
                 controller.abort();
-            }, 3000); // 3秒超时          
+            }, 3000); // 3秒超时
 
             try {
                 const response = await fetch(url, {
@@ -97,7 +94,7 @@ export abstract class JWXTService {
 
                 if ((err as Error).name === "AbortError") {
                     // 处理超时错误
-                    throw new Error("请求人数过多，触发了限流，请稍后再试");
+                    throw new Error("请求无效，请重试");
                 }
             }
         }
