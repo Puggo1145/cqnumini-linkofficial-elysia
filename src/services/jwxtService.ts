@@ -22,7 +22,7 @@ export abstract class JWXTService {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => {
                 controller.abort();
-            }, 1000); // 1 秒超时
+            }, 3000); // 3 秒超时
 
             try {
                 const response = await fetch(url, {
@@ -94,7 +94,7 @@ export abstract class JWXTService {
 
                 if ((err as Error).name === "AbortError") {
                     // 处理超时错误
-                    throw new Error("请求无效，请重试");
+                    throw new Error("请求人数过多，触发了教务系统限流，请稍后再试");
                 }
             }
         }
