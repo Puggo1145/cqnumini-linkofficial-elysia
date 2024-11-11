@@ -5,10 +5,9 @@ WORKDIR /app
 # Cache packages installation
 COPY package.json package.json
 COPY bun.lockb bun.lockb
+COPY ./src ./src
 
 RUN bun install
-
-COPY ./src ./src
 
 ENV NODE_ENV=production
 
